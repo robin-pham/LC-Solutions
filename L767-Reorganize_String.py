@@ -25,3 +25,5 @@ class Solution:
 
 # time O(nlogn) - O(n) to go through ch to generate dictionary adn then go through dict and reorg str, dict is sorted so O(nlogn)
 # space O(n) - dict of ch and array ordered_s based on ch in str
+
+# commit 2
