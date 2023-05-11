@@ -15,3 +15,7 @@ class Solution:
                 left_idx += 1
 
         return max_area
+
+
+# time O(n) - one pass of array height
+#  space O(n) - variables to store indices, areas - track linearly with height array
