@@ -21,3 +21,7 @@ class Solution:
             spiral.append(matrix[row][col])
             visited.add((row, col))
         return spiral
+
+
+#  time O(n) - visit each item array once
+#  space O(n) - spiral array and visited set grow linearly with len of matrix array
