@@ -13,3 +13,7 @@ class Solution:
                 else max_profit
             )
         return max_profit
+
+
+# time O(n) - go through prices once
+# space O(1) - initialized two variables to keep track of lowest_price and max_profit
