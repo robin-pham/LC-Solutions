@@ -14,14 +14,17 @@ def letterCombinations(digits: str):
     }
 
     combos = []
-    for num in digits:
-        if combos:
-            temp_combos = [
-                combo + letter for combo in combos for letter in letters[int(num)]
-            ]
-        else:
-            temp_combos = letters[int(num)]
-        combos = temp_combos
+    if digits == "":
+        return combos
+
+    def translate(idx, combo):
+        if idx == len(digits):
+            combos.append(combo)
+            return
+        for letter in letters[int(digits[idx])]:
+            translate(idx + 1, combo + letter)
+
+    translate(0, "")
 
     return combos
 
