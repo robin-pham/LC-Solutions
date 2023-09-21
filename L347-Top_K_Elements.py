@@ -74,3 +74,4 @@ class Solution:
 
         results = [min_heap.delete_and_return_min()[1] for _ in range(k)]
         return results
+ 
