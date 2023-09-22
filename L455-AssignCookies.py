@@ -1,7 +1,7 @@
 # 455 Assign Cookies
 
 
-# 10:35
+# 10:35 - 19 min
 
 #  do we have to make sure the greediest children are fed first in all cases?
 #  heap implementation 

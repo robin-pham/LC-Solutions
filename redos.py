@@ -1,40 +1,26 @@
-# L2 Add Two Numbers -5:07 - finish 5:16
+# 108 - array ot bst
 
-class ListNode:
+# [-10, -3, 0, 5, 9]  - left is smaller, right is larger
+#  find mid point - node.left = left of mid point, node.right = right of mid
+# 11:40
+
+class TreeNode:
     def __init__(self, value):
         self.val = value
-        self.next = None
+        self.left = None
+        self.right = None
 
-l1 = ListNode(9)
-l12 = ListNode(9)
-l13 = ListNode(9)
-l1.next = l12
-l12.next = l13
+def array_to_BST(nums):
+    if not nums:
+        return
+    mid = len(nums) // 2
+    node = TreeNode(nums[mid])
+    node.left = array_to_BST(nums[:mid])
+    node.right = array_to_BST(nums[mid+1:])
 
-l2 = ListNode(9)
-l22 = ListNode(9)
-l23 = ListNode(9)
-l2.next = l22
-l22.next = l23
+    return node
 
-def add_numbers(l1, l2):
-    current_digit = 0
-    head = node = ListNode(0)
+nums = [-10, -3, 0, 5, 9]
+head = array_to_BST(nums)
+print(head.val)
 
-    while l1 or l2 or (current_digit > 0):
-        if l1:
-            current_digit += l1.val
-            l1 = l1.next
-        if l2:
-            current_digit += l2.val
-            l2 = l2.next
-        node.next = ListNode(current_digit % 10)
-        current_digit //= 10
-        node = node.next
-
-    return head.next
-
-sum = add_numbers(l1, l2)
-while sum:
-    print(sum.val)
-    sum = sum.next
