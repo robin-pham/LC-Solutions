@@ -42,6 +42,9 @@ regular sorting
 [10,12] covers 2 and 3
 
 intervals = [[(2,6), 0, 1]]
+
+can the balloons be described in a new way? [mid, radius]
+[2.5, 2.5], [5,3], [9,2], [13, 3]
 """
 
 
@@ -50,7 +53,8 @@ def pop_balloons(points):
     intervals = [[(points[0][0], points[0][1]), 0]]
     print(intervals)
     for start, end in points[1:]:
-        print(start, end)
+        for idx in range(len(intervals)):
+            if 
 
 
 points = [[10, 16], [2, 8], [1, 6], [7, 12]]
