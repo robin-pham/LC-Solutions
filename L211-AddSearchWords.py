@@ -21,8 +21,6 @@ class Trie:
 
     def searchPeriod(self, word, node):
         for child in node.children.values():
-            print(child)
-            print(child.children)
             for ch in word[1:]:
                 if ch not in child.children:
                     break
