@@ -1,47 +1,94 @@
-# redundant connections
-# 12:19
+#  77 - Combinations
+#  all combos of k numbers in range 1-n
+#  n = 4, k = 2 - [1,2],[1,3],[1,4],[2,3],[2,4],[3,4]
+# recursive solution, calling function, and passing the current combo, numbers to choose from
+# if current combo len == k, add to combos
+# otherwise call function with combo + numbers
 
 
-class DSU:
-    def __init__(self):
-        self.parents = {}
-        self.ranks = {}
+def combinations(n, k):
+    combos = []
 
-    def find(self, node):
-        if node not in self.parents:
-            self.parents[node] = node
-        if self.parents[node] != node:
-            self.parents[node] = self.find(self.parents[node])
-        return self.parents[node]
-
-    def get_rank(self, node):
-        if node not in self.ranks:
-            self.ranks[node] = 0
-        return self.ranks[node]
-
-    def union(self, node_a, node_b):
-        parent_a = self.find(node_a)
-        parent_b = self.find(node_b)
-        if parent_a == parent_b:
+    def make_combo(current_combo):
+        if len(current_combo) == k:
+            combos.append(current_combo)
             return
-        rank_a = self.get_rank(node_a)
-        rank_b = self.get_rank(node_b)
-        if rank_a > rank_b:
-            self.parents[parent_b] = parent_a
-        else:
-            self.parents[parent_a] = parent_b
-            if rank_a == rank_b:
-                rank_b += 1
+        for num in range(current_combo[-1] + 1, n + 1):
+            make_combo(current_combo + [num])
+
+    for num in range(1, n + 1):
+        make_combo([num])
+    return combos
 
 
-def find_redundant(edges):
-    graph = DSU()
-    for point_a, point_b in edges:
-        if graph.find(point_a) == graph.find(point_b):
-            return [point_a, point_b]
-        else:
-            graph.union(point_a, point_b)
+# 39 - Combo Sums - 10 min
+# use numbers unlimited times
+def combo_sum(candidates, target):
+    combos = []
+
+    def make_sums(current_combo, sum, start):
+        print(current_combo)
+        if sum == target:
+            combos.append(current_combo)
+            return
+        elif sum > target:
+            return
+
+        for idx, num in enumerate(candidates[start:]):
+            if num <= (target - sum):
+                make_sums(current_combo + [num], sum + num, start + idx)
+
+    make_sums([], 0, 0)
+    return combos
 
 
-edges = [[1, 2], [2, 3], [3, 4], [1, 4], [1, 5]]
-print(find_redundant(edges))
+# 78 - Subsets 2:14
+# give array nums of unique elements, return all subsets - no dupicates, in any order
+# only add numbers larger than previously added
+# pass current set, and start idx number passed into the set
+#  for num in nums[start:] -> call function with new set + num
+
+
+def subsets(nums):
+    # recursive
+    subset = []
+
+    def make_sets(set, start):
+        subset.append(set)
+        if start == len(nums):
+            return
+        for idx, num in enumerate(nums[start:]):
+            make_sets(set + [num], start + idx + 1)
+
+    make_sets([], 0)
+    return subset
+
+
+# iterative
+# subset = [[]]
+# for num in nums:
+#     current = []
+#     for set in subset:
+#         current.append(set + [num])
+#     subset += current
+#     print(subset)
+# return subset
+
+
+# 46 - Permutations - 9 min
+# array of nums - they are distinct, return all permutations
+#  have a perm function that takes in current perm, and remaining elements
+
+
+def permutations(nums):
+    perms = []
+
+    def make_perms(current, remaining):
+        if not remaining:
+            perms.append(current)
+            return
+        for idx, num in enumerate(remaining):
+            make_perms(current + [num], remaining[:idx] + remaining[idx + 1 :])
+
+    make_perms([], nums)
+    return perms
