@@ -92,3 +92,6 @@ def permutations(nums):
 
     make_perms([], nums)
     return perms
+
+
+print(permutations([1, 2, 3]))
