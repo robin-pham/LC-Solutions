@@ -94,4 +94,34 @@ def permutations(nums):
     return perms
 
 
-print(permutations([1, 2, 3]))
+def traversals(node):
+    if not node:
+        return
+    traversals(node.left)
+    traversals(node.right)
+    print(node.val)
+
+
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+
+"""
+        5
+    2       10
+   0 3     6   12
+
+"""
+
+a = TreeNode(5)
+a.left = TreeNode(2)
+a.left.left = TreeNode(0)
+a.left.right = TreeNode(3)
+a.right = TreeNode(10)
+a.right.left = TreeNode(6)
+a.right.right = TreeNode(12)
+
+traversals(a)
