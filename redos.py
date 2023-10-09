@@ -124,4 +124,32 @@ a.right = TreeNode(10)
 a.right.left = TreeNode(6)
 a.right.right = TreeNode(12)
 
-traversals(a)
+
+
+
+def rotate_image(matrix):
+    n = len(matrix) - 1
+    for row in range(n//2+1):
+        for col in range(row, n-row):
+            
+
+
+
+    ''''
+    for 3x3 - go until 2nd col
+    for 4x4 - go until 3rd
+    for 5x5 - go until 4th
+
+    1st row range(0, n-1)
+    2nd row (1, n-2)
+    3rd row (2, n-3)
+
+    4x4
+    0,0 -> 0,3 -> 3,3 -> 3,0
+    0,1 -> 1,3 -> 3,2 -> 2,0
+    0,2 -> 2,3 -> 3,1 -> 1,0
+    (0, i) -> (i, 3) -> (3, n-i) - > (n-i, 0)
+
+    1,1 -> 1,2 -> 2,2 -> 2,1
+
+    '''
