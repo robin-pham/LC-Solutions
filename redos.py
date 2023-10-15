@@ -125,31 +125,37 @@ a.right.left = TreeNode(6)
 a.right.right = TreeNode(12)
 
 
+# 279 - Perfect squares
+
+# given n, return least number of perfect squares that sum to n
+# ex. 12 = 4+4+4 , return 3
+# ex. 13 = 4+9, return 2
+
+"""
+first get a list of squares less than or equal to n
+then run combo sums on that list 
+
+"""
 
 
-def rotate_image(matrix):
-    n = len(matrix) - 1
-    for row in range(n//2+1):
-        for col in range(row, n-row):
-            
+def perfect_squares(n):
+    def combo_sum(current_sum, sq_count, idx):
+        nonlocal fewest_squares
+        if sq_count >= fewest_squares:
+            return
+        if current_sum == n:
+            fewest_squares = min(fewest_squares, sq_count)
+            return
+        for new_idx, num in enumerate(squares[idx:]):
+            if num + current_sum <= n:
+                combo_sum(current_sum + num, sq_count + 1, new_idx + idx)
+
+    squares = [i**2 for i in range(int(n ** (1 / 2)), 0, -1)]
+    fewest_squares = n - squares[0]
+    combo_sum(0, 0, 0)
+    print(n, fewest_squares, squares)
+    return fewest_squares
 
 
-
-    ''''
-    for 3x3 - go until 2nd col
-    for 4x4 - go until 3rd
-    for 5x5 - go until 4th
-
-    1st row range(0, n-1)
-    2nd row (1, n-2)
-    3rd row (2, n-3)
-
-    4x4
-    0,0 -> 0,3 -> 3,3 -> 3,0
-    0,1 -> 1,3 -> 3,2 -> 2,0
-    0,2 -> 2,3 -> 3,1 -> 1,0
-    (0, i) -> (i, 3) -> (3, n-i) - > (n-i, 0)
-
-    1,1 -> 1,2 -> 2,2 -> 2,1
-
-    '''
+for i in range(1, 60):
+    perfect_squares(i)
