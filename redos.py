@@ -137,7 +137,6 @@ then run combo sums on that list
 
 """
 
-
 def perfect_squares(n):
     def combo_sum(current_sum, sq_count, idx):
         nonlocal fewest_squares
@@ -156,6 +155,5 @@ def perfect_squares(n):
     print(n, fewest_squares, squares)
     return fewest_squares
 
+# 295 - Find Median from Data stream
 
-for i in range(1, 60):
-    perfect_squares(i)

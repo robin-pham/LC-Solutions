@@ -2,51 +2,69 @@
 
 # start 5:38 - 6:35, then 9:22 - 9:41
 
-'''
-        3
-    9       20
-12  2       15  7
-pre - 3 9 12 2 20 15 7
-in - 12 9 2 3 15 20 7
 
-left = [12 9 2]
-node 3
-is left, so node.left with left_stack
-leftleft = [12] 
-node 9
-
-'''
-from collections import deque
 class TreeNode:
     def __init__(self, value):
         self.val = value
         self.left = None
         self.right = None
 
+
+"""
+        3
+    9       20
+12  2       15  7
+pre - 3 9 12 2 20 15 7
+in - 12 9 2 3 15 20 7
+
+inorder
+left = [12 9 2]
+right = [15 20 7]
+
+preorder
+left = [9 12 2]
+right = [20 15 7]
+
+"""
+
+
 def construct_tree(preorder, inorder):
-    inorder_deque = deque(inorder)
-    idx = 0
+    if not inorder:
+        return
+    node = TreeNode(preorder[0])
+    io_idx = inorder.index(node.val)
+    #  pass left - inorder[:idx]
+    #  pass right - inorder[idx+1:]
 
-    def createNode(inorder):
-        nonlocal idx
-        left_stack = deque([])
-        while preorder[idx] != inorder[0]:
-            left_stack.append(inorder.popleft())
-        node = TreeNode(preorder[idx])
-        idx += 1
-        inorder.popleft()
-        if left_stack:
-            node.left = createNode(left_stack)
-        if inorder:
-            node.right = createNode(inorder)
+    # preorder to left is preorder[1:io_idx+1] - io_idx is the len of inorder passed left
+    node.left = construct_tree(preorder[1 : io_idx + 1], inorder[:io_idx])
+    node.right = construct_tree(preorder[io_idx + 1 :], inorder[io_idx + 1 :])
+    return node
 
-        return node
+    # inorder_deque = deque(inorder)
+    # idx = 0
 
-    root = createNode(inorder_deque)
-    return root
-        
-pre = [3,9,20,15,7]
-ino = [9,3,15,20,7]
+    # def createNode(inorder):
+    #     nonlocal idx
+    #     left_stack = deque([])
+    #     while preorder[idx] != inorder[0]:
+    #         left_stack.append(inorder.popleft())
+    #     node = TreeNode(preorder[idx])
+    #     idx += 1
+    #     inorder.popleft()
+    #     if left_stack:
+    #         node.left = createNode(left_stack)
+    #     if inorder:
+    #         node.right = createNode(inorder)
+
+    #     return node
+
+    # root = createNode(inorder_deque)
+    # return root
+
+
+pre = [3, 9, 20, 15, 7]
+ino = [9, 3, 15, 20, 7]
 
 node = construct_tree(pre, ino)
 
@@ -60,4 +78,3 @@ while queue:
         if node.right:
             new_queue.append(node.right)
     queue = new_queue
-
