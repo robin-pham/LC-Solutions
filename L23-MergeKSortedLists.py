@@ -12,26 +12,6 @@ class ListNode:
         self.next = None
 
 
-a = ListNode(1)
-b = ListNode(2)
-c = ListNode(3)
-a.next = b
-b.next = c
-
-m = ListNode(100)
-n = ListNode(200)
-o = ListNode(600)
-p = ListNode(601)
-m.next, n.next, o.next = n, o, p
-
-v = ListNode(2)
-w = ListNode(4)
-x = ListNode(105)
-y = ListNode(220)
-z = ListNode(221)
-v.next, w.next, x.next, y.next = w, x, y, z
-
-
 class MinHeap:
     def __init__(self):
         self.heap = []
@@ -92,7 +72,24 @@ def merge_lists(lists):
     return head.next
 
 
-ok = merge_lists([a, m, v])
+ok = merge_lists([first, second, third])
 while ok:
     print(ok.val)
     ok = ok.next
+
+
+def make_LL(arr):
+    prev = None
+    for num in arr:
+        curr = ListNode(num)
+        if not prev:
+            head = curr
+        else:
+            prev.next = curr
+        prev = curr
+    return head
+
+
+first = make_LL([1, 2, 3])
+second = make_LL([100, 200, 600, 601])
+third = make_LL([2, 4, 105, 220, 221])

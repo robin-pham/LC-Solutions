@@ -4,7 +4,7 @@ from collections import defaultdict
 class DSU:
     def __init__(self):
         self.parents = {}
-        self.direct_parent = defaultdict(list)
+        self.direct_parent = {}
         self.ranks = {}
 
     def find(self, node):
@@ -23,15 +23,17 @@ class DSU:
                 # check which one is in a cycle vs outside
                 queue = [(parent_a, parent_a), (parent_b, parent_b)]
                 print(self.direct_parent)
-                while len(queue) == 2:
+                while queue:
                     print(queue)
                     new_queue = []
                     for node, parent in queue:
-                        if self.direct_parent[node]:
+                        if node == happy_node:
+                            return [parent, happy_node]
+                        if node in self.direct_parent:
                             new_queue.append((self.direct_parent[node][0], parent))
                     queue = new_queue
-                print(queue)
-                return [queue[0][1], happy_node]
+                # no cycle found, eliminate second parent
+                return [self.direct_parent[happy_node][1], happy_node]
         return
 
     def get_rank(self, node):
@@ -40,7 +42,10 @@ class DSU:
         return self.ranks[node]
 
     def union(self, node_a, node_b):
+        if node_b not in self.direct_parent:
+            self.direct_parent[node_b] = []
         self.direct_parent[node_b].append(node_a)
+        # self.direct_parent[node_b].append(node_a)
         parent_a = self.find(node_a)
         parent_b = self.find(node_b)
         if parent_a != parent_b:

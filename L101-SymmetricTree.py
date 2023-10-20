@@ -1,7 +1,5 @@
 # 101 - Symmetric Tree
 
-# 1:38
-
 
 class Node:
     def __init__(self, value):
